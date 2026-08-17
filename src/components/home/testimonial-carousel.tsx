@@ -108,7 +108,7 @@ export function TestimonialCarousel() {
                 <p className="mt-0.5 text-sm text-muted">
                   {testimonial.role} · {testimonial.location}
                 </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-saffron/70">
+                <p className="mt-1 text-xs uppercase tracking-wider text-saffron">
                   {eventTypeLabel[testimonial.eventType]}
                 </p>
               </figcaption>

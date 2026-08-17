@@ -1,29 +1,27 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Star, UtensilsCrossed } from "lucide-react";
 
-import { ParticleField } from "@/components/home/particle-field";
+import { DishOrbit } from "@/components/home/dish-orbit";
 import { FadeUp } from "@/components/motion/fade-up";
 import { Magnetic } from "@/components/motion/magnetic";
-import { Parallax } from "@/components/motion/parallax";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
 
 const trustPoints = [
   { icon: ShieldCheck, label: "FSSAI licensed kitchen" },
   { icon: UtensilsCrossed, label: "Pure vegetarian" },
-  { icon: Star, label: "1,200+ events served" },
+  // Carries the rating that used to sit on a floating card over the hero.
+  { icon: Star, label: "4.9/5 across 1,200+ events" },
 ];
 
 export function Hero() {
   return (
     <section className="relative isolate grain overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-40 lg:pb-24">
-      {/* Ambient layers - all decorative */}
+      {/* Ambient layer - decorative */}
       <div
         aria-hidden="true"
         className="glow-marigold absolute inset-x-0 top-0 h-[38rem]"
       />
-      <ParticleField className="absolute inset-0 -z-10 h-full w-full" />
 
       <div className="container-page relative">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
@@ -98,36 +96,8 @@ export function Hero() {
 
           {/* Imagery */}
           <div className="lg:col-span-5">
-            <FadeUp delay={160} className="relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                <Parallax
-                  distance={28}
-                  className="overflow-hidden rounded-[1.75rem] border border-line"
-                >
-                  <Image
-                    src="/images/hero/hero.jpg"
-                    alt="A vegetarian feast served on a banana leaf with rice, curries and pickles"
-                    width={1600}
-                    height={1000}
-                    priority
-                    sizes="(max-width: 1024px) 90vw, 40vw"
-                    className="h-full w-full object-cover"
-                  />
-                </Parallax>
-
-                {/* Floating stat card */}
-                <div className="glass-strong absolute -bottom-6 -left-2 w-44 rounded-2xl p-4 sm:left-auto sm:-right-6 sm:w-52">
-                  <p className="font-display text-3xl font-semibold text-saffron">
-                    4.9
-                    <span className="ml-1 align-super text-sm text-muted">
-                      /5
-                    </span>
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted">
-                    Average rating across 1,200+ events in Pune
-                  </p>
-                </div>
-              </div>
+            <FadeUp delay={160}>
+              <DishOrbit />
             </FadeUp>
           </div>
         </div>

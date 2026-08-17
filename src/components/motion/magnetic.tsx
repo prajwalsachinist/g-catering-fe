@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
 interface MagneticProps {
   children: React.ReactNode;
@@ -11,8 +10,15 @@ interface MagneticProps {
 }
 
 /**
- * Pulls its child gently toward the pointer on hover. Disabled entirely for
- * coarse pointers (touch) and for users who prefer reduced motion, so the
+ * Pulls its child gently toward the pointer on hover.
+ *
+ * Written against the DOM directly rather than with a spring library: the
+ * effect is a short transform on two call-to-action buttons, and it is not
+ * worth shipping an animation runtime for. Easing comes from a CSS
+ * transition, and the transform is written straight to style so pointer
+ * moves never trigger a React render.
+ *
+ * Disabled for coarse pointers (touch) and for reduced-motion users, so the
  * child stays exactly where it was laid out.
  */
 export function Magnetic({
@@ -21,52 +27,51 @@ export function Magnetic({
   strength = 12,
 }: MagneticProps) {
   const ref = React.useRef<HTMLSpanElement>(null);
-  const prefersReduced = useReducedMotion();
-  const [enabled, setEnabled] = React.useState(false);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
+  const enabledRef = React.useRef(false);
 
   React.useEffect(() => {
-    if (prefersReduced) {
-      setEnabled(false);
-      return;
-    }
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setEnabled(mq.matches);
+    const media = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    const update = () => {
+      enabledRef.current = media.matches;
+      if (!media.matches && ref.current) {
+        ref.current.style.transform = "";
+      }
+    };
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, [prefersReduced]);
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   function handlePointerMove(event: React.PointerEvent<HTMLSpanElement>) {
-    if (!enabled || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const offsetX = event.clientX - (rect.left + rect.width / 2);
-    const offsetY = event.clientY - (rect.top + rect.height / 2);
+    const el = ref.current;
+    if (!enabledRef.current || !el) return;
+    const rect = el.getBoundingClientRect();
     // Normalise to the element's half-extent so the pull is proportional.
-    x.set((offsetX / (rect.width / 2)) * strength);
-    y.set((offsetY / (rect.height / 2)) * strength);
+    const x = ((event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)) * strength;
+    const y = ((event.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)) * strength;
+    el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
   }
 
   function reset() {
-    x.set(0);
-    y.set(0);
+    if (ref.current) ref.current.style.transform = "";
   }
 
   return (
-    <motion.span
+    <span
       ref={ref}
       className={className}
-      style={{ x: springX, y: springY, display: "inline-block" }}
+      style={{
+        display: "inline-block",
+        transition: "transform 0.35s var(--ease-out-expo)",
+      }}
       onPointerMove={handlePointerMove}
       onPointerLeave={reset}
       // Keyboard users never trigger the pull; make sure focus resets it too.
       onBlur={reset}
     >
       {children}
-    </motion.span>
+    </span>
   );
 }

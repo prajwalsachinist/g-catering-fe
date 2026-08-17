@@ -148,7 +148,7 @@ export function MenuBrowser() {
                     {activeCount > 0 && (
                       <span
                         aria-hidden="true"
-                        className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-saffron text-[0.65rem] font-bold text-ink"
+                        className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-saffron text-[0.65rem] font-bold text-on-accent"
                       >
                         {activeCount}
                       </span>
@@ -179,6 +179,9 @@ export function MenuBrowser() {
               </Sheet>
             </div>
           </div>
+
+          {/* Cards below use <h3>; this keeps the outline h1 > h2 > h3. */}
+          <h2 className="sr-only">All dishes</h2>
 
           {/* Result count, announced on change */}
           <p className="mb-5 text-sm text-muted" role="status" aria-live="polite">

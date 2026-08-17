@@ -35,7 +35,7 @@ export function MobileCtaBar() {
             href={whatsappHref(defaultWhatsappMessage)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-marigold text-sm font-semibold text-ink transition-transform active:scale-[0.98]"
+            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-marigold text-sm font-semibold text-on-accent transition-transform active:scale-[0.98]"
           >
             <WhatsAppIcon className="size-4" />
             WhatsApp

@@ -9,8 +9,8 @@ const fieldBase = [
   "focus:border-saffron focus:outline-none",
   "disabled:cursor-not-allowed disabled:opacity-50",
   "aria-[invalid=true]:border-danger",
-  // Native pickers render dark-on-dark in some browsers without this.
-  "[color-scheme:dark]",
+  // Native date pickers follow the `color-scheme` set per theme on :root,
+  // so nothing is hard-coded here.
 ];
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(

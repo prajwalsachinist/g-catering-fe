@@ -35,18 +35,15 @@ export function MenuCard({ item, priority = false, className }: MenuCardProps) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
         />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent"
-        />
+        <div aria-hidden="true" className="media-fade absolute inset-0" />
         {category && (
-          <span className="absolute left-3 top-3 rounded-full bg-ink/70 px-2.5 py-1 text-[0.7rem] font-medium text-foreground backdrop-blur-sm">
+          <span className="media-chip absolute left-3 top-3 rounded-full px-2.5 py-1 text-[0.7rem] font-medium text-foreground">
             {category.name}
           </span>
         )}
         {item.spiceLevel !== undefined && item.spiceLevel > 0 && (
           <span
-            className="absolute right-3 top-3 flex items-center gap-0.5 rounded-full bg-ink/70 px-2 py-1 backdrop-blur-sm"
+            className="media-chip absolute right-3 top-3 flex items-center gap-0.5 rounded-full px-2 py-1"
             title={`Spice level ${item.spiceLevel} of 3`}
           >
             <span className="sr-only">Spice level {item.spiceLevel} of 3</span>

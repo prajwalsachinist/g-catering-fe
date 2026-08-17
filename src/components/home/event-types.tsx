@@ -58,11 +58,11 @@ export function EventTypes() {
                     />
                     <div
                       aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-surface via-surface/25 to-transparent"
+                      className="media-fade absolute inset-0"
                     />
                     <span
                       aria-hidden="true"
-                      className="absolute left-5 top-5 grid size-10 place-items-center rounded-full border border-saffron/30 bg-ink/60 text-saffron backdrop-blur-sm"
+                      className="media-chip absolute left-5 top-5 grid size-10 place-items-center rounded-full text-saffron"
                     >
                       <Icon className="size-5" />
                     </span>
@@ -76,7 +76,7 @@ export function EventTypes() {
                         </h3>
                         <p
                           lang="mr"
-                          className="mt-0.5 text-sm text-saffron/70"
+                          className="mt-0.5 text-sm text-saffron"
                           aria-hidden="true"
                         >
                           {event.nameMarathi}

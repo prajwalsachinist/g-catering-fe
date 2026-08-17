@@ -11,11 +11,12 @@ const badgeVariants = cva(
         default: "border-line-strong bg-surface-2 text-muted",
         saffron: "border-saffron/40 bg-saffron/10 text-saffron-bright",
         outline: "border-line-strong text-muted",
-        /* Diet badges. Each pairing is AA-compliant on the card surface. */
-        veg: "border-success/40 bg-success/10 text-success",
-        jain: "border-turmeric/40 bg-turmeric/10 text-turmeric",
-        vegan: "border-success/30 bg-success/5 text-success",
-        "no-onion-garlic": "border-kokum/50 bg-kokum/15 text-[#f0879f]",
+        /* Diet badges. The diet-* tokens carry theme-specific values so each
+           label/chip pairing clears AA in both light and dark. */
+        veg: "border-diet-veg/40 bg-diet-veg/10 text-diet-veg",
+        jain: "border-diet-jain/40 bg-diet-jain/10 text-diet-jain",
+        vegan: "border-diet-veg/30 bg-diet-veg/10 text-diet-veg",
+        "no-onion-garlic": "border-diet-nog/50 bg-diet-nog/15 text-diet-nog",
       },
     },
     defaultVariants: { variant: "default" },

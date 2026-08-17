@@ -7,6 +7,7 @@ import { Menu, Phone } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/site/logo";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import {
   Sheet,
   SheetClose,
@@ -83,6 +84,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
+
           <Button
             asChild
             variant="secondary"

@@ -18,7 +18,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-gradient-marigold text-ink font-semibold shadow-[0_8px_30px_-8px_var(--color-saffron)] hover:shadow-[0_12px_44px_-8px_var(--color-saffron)] hover:brightness-110",
+          "bg-gradient-marigold text-on-accent font-semibold shadow-[0_8px_30px_-8px_var(--color-saffron)] hover:shadow-[0_12px_44px_-8px_var(--color-saffron)] hover:brightness-110",
         secondary:
           "glass text-foreground hover:bg-surface-2 hover:border-saffron/40",
         outline:
