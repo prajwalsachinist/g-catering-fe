@@ -10,7 +10,18 @@ import { categories } from "@/data/categories";
 import { featuredMenuItems } from "@/data/menu";
 
 export function MenuPreview() {
-  const preview = featuredMenuItems.slice(0, 6);
+  // One dish per category, in menu order, so the preview reads as a spread
+  // across the whole kitchen rather than six starters in a row.
+  const seen = new Set<string>();
+  const preview = categories
+    .flatMap((category) => {
+      const pick = featuredMenuItems.find(
+        (item) => item.category === category.slug && !seen.has(item.id),
+      );
+      if (pick) seen.add(pick.id);
+      return pick ? [pick] : [];
+    })
+    .slice(0, 6);
 
   return (
     <section

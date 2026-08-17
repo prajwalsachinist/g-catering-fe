@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -m 25 \"https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian\")",
+      "Bash(curl -s -o napi.json -w \"%{http_code}\" -m 25 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\)\" \"https://unsplash.com/napi/search/photos?query=indian%20food&per_page=3\")",
+      "Bash(node contact.mjs ids2.txt contact2.png)",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/fetch-photos.mjs)"
+    ]
+  }
+}

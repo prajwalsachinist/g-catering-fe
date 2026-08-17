@@ -58,7 +58,7 @@ export function EventTypes() {
                     />
                     <div
                       aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-surface via-surface/50 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-surface via-surface/25 to-transparent"
                     />
                     <span
                       aria-hidden="true"

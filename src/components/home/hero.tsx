@@ -3,9 +3,9 @@ import Link from "next/link";
 import { ArrowRight, ShieldCheck, Star, UtensilsCrossed } from "lucide-react";
 
 import { ParticleField } from "@/components/home/particle-field";
+import { FadeUp } from "@/components/motion/fade-up";
 import { Magnetic } from "@/components/motion/magnetic";
 import { Parallax } from "@/components/motion/parallax";
-import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
 
@@ -29,7 +29,7 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
           {/* Copy */}
           <div className="lg:col-span-7">
-            <Reveal>
+            <FadeUp>
               <p className="inline-flex items-center gap-2 rounded-full border border-saffron/30 bg-saffron/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-saffron-bright">
                 <span className="relative flex size-1.5">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-saffron opacity-75" />
@@ -37,26 +37,27 @@ export function Hero() {
                 </span>
                 Serving Pune since {siteConfig.founded}
               </p>
-            </Reveal>
+            </FadeUp>
 
-            <Reveal delay={0.08}>
+            {/* delay 0 on the h1: it is the LCP element. */}
+            <FadeUp>
               <h1 className="mt-6 text-display-lg leading-[0.95] tracking-[-0.035em]">
                 The food everyone
                 <br />
                 <span className="text-gradient-marigold">remembers</span>
               </h1>
-            </Reveal>
+            </FadeUp>
 
-            <Reveal delay={0.16}>
+            <FadeUp delay={120}>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
                 Weddings, mangalkarya, vastu shanti and corporate events across
                 Pune. Maharashtrian roots, a kitchen that has never handled
                 meat, and a team that treats your timings as seriously as your
                 menu.
               </p>
-            </Reveal>
+            </FadeUp>
 
-            <Reveal delay={0.24}>
+            <FadeUp delay={200}>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Magnetic>
                   <Button asChild size="lg" className="w-full sm:w-auto">
@@ -75,9 +76,9 @@ export function Hero() {
                   <Link href="/menu">Explore the menu</Link>
                 </Button>
               </div>
-            </Reveal>
+            </FadeUp>
 
-            <Reveal delay={0.32}>
+            <FadeUp delay={280}>
               <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
                 {trustPoints.map(({ icon: Icon, label }) => (
                   <li
@@ -92,20 +93,20 @@ export function Hero() {
                   </li>
                 ))}
               </ul>
-            </Reveal>
+            </FadeUp>
           </div>
 
           {/* Imagery */}
           <div className="lg:col-span-5">
-            <Reveal delay={0.2} className="relative">
+            <FadeUp delay={160} className="relative">
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 <Parallax
                   distance={28}
                   className="overflow-hidden rounded-[1.75rem] border border-line"
                 >
                   <Image
-                    src="/images/hero/hero-fallback.svg"
-                    alt="A Maharashtrian wedding thali laid out under warm evening lighting"
+                    src="/images/hero/hero.jpg"
+                    alt="A vegetarian feast served on a banana leaf with rice, curries and pickles"
                     width={1600}
                     height={1000}
                     priority
@@ -127,7 +128,7 @@ export function Hero() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </FadeUp>
           </div>
         </div>
       </div>

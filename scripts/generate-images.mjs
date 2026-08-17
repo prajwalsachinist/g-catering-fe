@@ -1,10 +1,11 @@
 /**
- * Generates the placeholder art referenced by src/data/*.ts.
+ * Generates the abstract SVG art still referenced by src/data/*.ts - in
+ * practice, the team portraits.
  *
- * These are deliberately abstract, warm-toned SVGs rather than stock photos:
- * they ship with the repo, cost ~1.5 KB each, render identically offline and
- * keep Lighthouse honest. Replace the files in public/images/** with real
- * photography when it is shot - the paths and aspect ratios are the contract.
+ * Food, event and gallery imagery is real photography; see
+ * scripts/fetch-photos.mjs (`npm run photos`). Team members stay abstract
+ * deliberately: presenting stock photos of strangers as named staff would
+ * misrepresent the business. Swap in real portraits when they are shot.
  *
  *   npm run images
  */
@@ -63,9 +64,9 @@ function menuMotif(rng, w, h, p) {
   const r = Math.min(w, h) * (0.3 + rng() * 0.05);
   let out = "";
 
-  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="none" stroke="${p.accent}" stroke-opacity=".28" stroke-width="1.5"/>`;
-  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r * 0.74)}" fill="${p.accent}" fill-opacity=".07"/>`;
-  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r * 0.74)}" fill="none" stroke="${p.accentSoft}" stroke-opacity=".22" stroke-width="1"/>`;
+  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}" fill="none" stroke="${p.accent}" stroke-opacity=".4" stroke-width="1.5"/>`;
+  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r * 0.74)}" fill="${p.accent}" fill-opacity=".14"/>`;
+  out += `<circle cx="${round(cx)}" cy="${round(cy)}" r="${round(r * 0.74)}" fill="none" stroke="${p.accentSoft}" stroke-opacity=".32" stroke-width="1"/>`;
 
   // Garnish arranged around the rim.
   const count = 5 + Math.floor(rng() * 4);
@@ -73,7 +74,7 @@ function menuMotif(rng, w, h, p) {
     const angle = (i / count) * Math.PI * 2 + rng() * 0.5;
     const dist = r * (0.3 + rng() * 0.34);
     const dotR = 6 + rng() * 20;
-    out += `<circle cx="${round(cx + Math.cos(angle) * dist)}" cy="${round(cy + Math.sin(angle) * dist)}" r="${round(dotR)}" fill="${rng() > 0.5 ? p.accent : p.accentSoft}" fill-opacity="${round(0.14 + rng() * 0.2)}"/>`;
+    out += `<circle cx="${round(cx + Math.cos(angle) * dist)}" cy="${round(cy + Math.sin(angle) * dist)}" r="${round(dotR)}" fill="${rng() > 0.5 ? p.accent : p.accentSoft}" fill-opacity="${round(0.22 + rng() * 0.28)}"/>`;
   }
 
   // A crescent highlight, as if light is falling from the upper left.
@@ -95,7 +96,7 @@ function sceneMotif(rng, w, h, p) {
   const lights = 7 + Math.floor(rng() * 6);
   for (let i = 0; i < lights; i += 1) {
     const r = 4 + rng() * 26;
-    out += `<circle cx="${round(rng() * w)}" cy="${round(rng() * h * 0.62)}" r="${round(r)}" fill="${p.accentSoft}" fill-opacity="${round(0.08 + rng() * 0.22)}"/>`;
+    out += `<circle cx="${round(rng() * w)}" cy="${round(rng() * h * 0.62)}" r="${round(r)}" fill="${p.accentSoft}" fill-opacity="${round(0.14 + rng() * 0.3)}"/>`;
   }
   return out;
 }
@@ -130,12 +131,12 @@ function buildSvg({ seed, width, height, motif }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img">
 <defs>
 <linearGradient id="b${id}" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#16110c"/>
-<stop offset=".55" stop-color="#0f0d0b"/>
-<stop offset="1" stop-color="#1b1209"/>
+<stop offset="0" stop-color="#2a1e12"/>
+<stop offset=".55" stop-color="#181310"/>
+<stop offset="1" stop-color="#33200e"/>
 </linearGradient>
 <radialGradient id="g${id}" cx="${glowX}%" cy="${glowY}%" r="70%">
-<stop offset="0" stop-color="${p.accent}" stop-opacity=".34"/>
+<stop offset="0" stop-color="${p.accent}" stop-opacity=".55"/>
 <stop offset="1" stop-color="${p.accent}" stop-opacity="0"/>
 </radialGradient>
 </defs>
@@ -189,12 +190,10 @@ async function collectPaths() {
     }
   }
 
-  // Art referenced from components rather than the data layer.
-  paths.set("/images/hero/hero-fallback.svg", SIZES.hero);
-  paths.set("/images/about/kitchen-01.svg", SIZES.about);
-  paths.set("/images/about/kitchen-02.svg", SIZES.about);
-  paths.set("/images/about/kitchen-03.svg", SIZES.about);
-
+  // Food, event and gallery imagery is real photography fetched by
+  // scripts/fetch-photos.mjs. What remains here is the team portraits:
+  // they stay abstract on purpose, because dressing up stock photos of
+  // strangers as named staff would misrepresent the business.
   return paths;
 }
 

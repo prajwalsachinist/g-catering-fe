@@ -111,7 +111,7 @@ export const eventTypes: EventType[] = [
     description:
       "Sangeet to reception. Multi-cuisine spreads, live counters and a team that knows a Maharashtrian wedding runs on chai and timing.",
     guestRange: "300 – 2,000 guests",
-    image: "/images/events/wedding.svg",
+    image: "/images/events/wedding.jpg",
     icon: "wedding",
   },
   {
@@ -121,7 +121,7 @@ export const eventTypes: EventType[] = [
     description:
       "Munj, barsa, sakharpuda and naming ceremonies — satvik menus cooked without onion or garlic when the occasion asks for it.",
     guestRange: "100 – 600 guests",
-    image: "/images/events/mangalkarya.svg",
+    image: "/images/events/mangalkarya.jpg",
     icon: "temple",
   },
   {
@@ -131,7 +131,7 @@ export const eventTypes: EventType[] = [
     description:
       "Housewarming pujas where the kitchen is not ready yet. We arrive with ours, feed everyone, and leave your new home spotless.",
     guestRange: "50 – 300 guests",
-    image: "/images/events/vastu-shanti.svg",
+    image: "/images/events/vastu-shanti.jpg",
     icon: "home",
   },
   {
@@ -141,7 +141,7 @@ export const eventTypes: EventType[] = [
     description:
       "Offsites, launches and Hinjewadi campus lunches. Punctual, invoiced, GST-compliant, and never late for a 1 PM break.",
     guestRange: "50 – 1,500 guests",
-    image: "/images/events/corporate.svg",
+    image: "/images/events/corporate.jpg",
     icon: "briefcase",
   },
   {
@@ -151,7 +151,7 @@ export const eventTypes: EventType[] = [
     description:
       "First birthdays to sixtieths. Chaat counters for the children, a proper thali for the grandparents.",
     guestRange: "30 – 400 guests",
-    image: "/images/events/birthday.svg",
+    image: "/images/events/birthday.jpg",
     icon: "cake",
   },
   {
@@ -161,7 +161,7 @@ export const eventTypes: EventType[] = [
     description:
       "Small, warm gatherings. We cook in your kitchen or ours, serve in your crockery, and wash up before we go.",
     guestRange: "20 – 100 guests",
-    image: "/images/events/house-party.svg",
+    image: "/images/events/house-party.jpg",
     icon: "sparkles",
   },
 ];
