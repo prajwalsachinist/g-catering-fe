@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" width="640" height="800" role="img">
+<defs>
+<linearGradient id="b1ski" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#16110c"/>
+<stop offset=".55" stop-color="#0f0d0b"/>
+<stop offset="1" stop-color="#1b1209"/>
+</linearGradient>
+<radialGradient id="g1ski" cx="27.56%" cy="18.78%" r="70%">
+<stop offset="0" stop-color="hsl(35.45 88.72% 54.92%)" stop-opacity=".34"/>
+<stop offset="1" stop-color="hsl(35.45 88.72% 54.92%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="640" height="800" fill="url(#b1ski)"/>
+<rect width="640" height="800" fill="url(#g1ski)"/>
+<circle cx="320" cy="304" r="108.8" fill="hsl(35.45 88.72% 54.92%)" fill-opacity=".16"/><path d="M 91.52 800 Q 102.4 467.2 320 450.88 Q 537.6 467.2 548.48 800 Z" fill="hsl(35.45 88.72% 54.92%)" fill-opacity=".12"/><circle cx="320" cy="304" r="163.2" fill="none" stroke="hsl(43.45 74.61% 64.43%)" stroke-opacity=".2" stroke-width="1"/>
+</svg>

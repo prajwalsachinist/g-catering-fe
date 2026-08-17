@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img">
+<defs>
+<linearGradient id="b11q6" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#16110c"/>
+<stop offset=".55" stop-color="#0f0d0b"/>
+<stop offset="1" stop-color="#1b1209"/>
+</linearGradient>
+<radialGradient id="g11q6" cx="46.27%" cy="34.05%" r="70%">
+<stop offset="0" stop-color="hsl(45.67 91.68% 53.59%)" stop-opacity=".34"/>
+<stop offset="1" stop-color="hsl(45.67 91.68% 53.59%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1200" height="800" fill="url(#b11q6)"/>
+<rect width="1200" height="800" fill="url(#g11q6)"/>
+<path d="M 0 440 Q 300 381.04 600 440 T 1200 440 L 1200 800 L 0 800 Z" fill="hsl(45.67 91.68% 53.59%)" fill-opacity="0.1"/><path d="M 0 552 Q 300 475.82 600 552 T 1200 552 L 1200 800 L 0 800 Z" fill="hsl(37.67 60.28% 22.35%)" fill-opacity="0.08"/><path d="M 0 664 Q 300 588.9 600 664 T 1200 664 L 1200 800 L 0 800 Z" fill="hsl(37.67 60.28% 22.35%)" fill-opacity="0.05"/><circle cx="781.64" cy="406.54" r="21.22" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.21"/><circle cx="966.86" cy="432.24" r="16.26" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.23"/><circle cx="1095.18" cy="314.81" r="23.46" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.09"/><circle cx="1089.74" cy="348.81" r="29.96" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.19"/><circle cx="769.57" cy="375.69" r="29.36" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.08"/><circle cx="1024.87" cy="308.77" r="28.79" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.22"/><circle cx="159.25" cy="44.34" r="9.84" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.09"/><circle cx="371.85" cy="286.79" r="12.36" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.15"/><circle cx="333.83" cy="75.46" r="25.94" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.11"/><circle cx="339.75" cy="182.34" r="10.25" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.27"/><circle cx="129.85" cy="31.66" r="5.92" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.2"/><circle cx="1126.63" cy="141.64" r="14.47" fill="hsl(53.67 84.17% 66.88%)" fill-opacity="0.2"/>
+</svg>

@@ -1,0 +1,135 @@
+import type { ComparisonRow, PackageTier } from "@/types";
+
+/**
+ * Row order here drives the comparison table. Each tier's `features` map is
+ * keyed by these ids — keep them in sync when adding a row.
+ */
+export const comparisonRows: ComparisonRow[] = [
+  { id: "starters", label: "Starters" },
+  { id: "mains", label: "Main course dishes" },
+  { id: "breads", label: "Breads" },
+  { id: "rice", label: "Rice & dal" },
+  { id: "sweets", label: "Sweets" },
+  { id: "beverages", label: "Beverages" },
+  { id: "live-counters", label: "Live counters" },
+  { id: "staff", label: "Service staff" },
+  { id: "crockery", label: "Crockery & cutlery" },
+  { id: "counter-setup", label: "Counter draping & setup" },
+  { id: "jain", label: "Jain / satvik parallel menu", boolean: true },
+  { id: "tasting", label: "Pre-event tasting session", boolean: true },
+  { id: "coordinator", label: "Dedicated event coordinator", boolean: true },
+  { id: "welcome-drink", label: "Welcome drink on arrival", boolean: true },
+  { id: "menu-customisation", label: "Full menu customisation", boolean: true },
+];
+
+export const packageTiers: PackageTier[] = [
+  {
+    id: "silver",
+    name: "Silver",
+    tagline: "Everything you need, nothing you don't",
+    pricePerPlate: 399,
+    minGuests: 100,
+    description:
+      "A complete, well-balanced vegetarian spread for house functions, office lunches and intimate mangalkarya. The menu our regulars started with.",
+    highlights: [
+      "2 starters, 4 main dishes",
+      "Maharashtrian or Punjabi menu",
+      "1 sweet and 1 beverage",
+      "1 server per 40 guests",
+      "Melamine crockery included",
+    ],
+    features: {
+      starters: "2",
+      mains: "4",
+      breads: "2 varieties",
+      rice: "1 rice + 1 dal",
+      sweets: "1",
+      beverages: "1",
+      "live-counters": "—",
+      staff: "1 per 40 guests",
+      crockery: "Melamine",
+      "counter-setup": "Standard draping",
+      jain: true,
+      tasting: false,
+      coordinator: false,
+      "welcome-drink": false,
+      "menu-customisation": false,
+    },
+  },
+  {
+    id: "gold",
+    name: "Gold",
+    tagline: "Our most-booked wedding menu",
+    pricePerPlate: 649,
+    minGuests: 100,
+    popular: true,
+    description:
+      "Multi-cuisine, two live counters and enough choice that no guest walks away hungry. Around eight in ten of our weddings run on this tier.",
+    highlights: [
+      "4 starters, 7 main dishes",
+      "Any two cuisines, mixed freely",
+      "2 live counters included",
+      "2 sweets and 2 beverages",
+      "Pre-event tasting for four",
+    ],
+    features: {
+      starters: "4",
+      mains: "7",
+      breads: "3 varieties",
+      rice: "2 rice + 2 dal",
+      sweets: "2",
+      beverages: "2",
+      "live-counters": "2 counters",
+      staff: "1 per 25 guests",
+      crockery: "Bone china",
+      "counter-setup": "Themed draping & signage",
+      jain: true,
+      tasting: true,
+      coordinator: true,
+      "welcome-drink": true,
+      "menu-customisation": false,
+    },
+  },
+  {
+    id: "platinum",
+    name: "Platinum",
+    tagline: "When the whole family is watching",
+    pricePerPlate: 999,
+    minGuests: 150,
+    description:
+      "Everything on the Gold menu, opened up. Build the menu dish by dish with our head chef, add four live counters and a server for every fifteen guests.",
+    highlights: [
+      "6 starters, 10 main dishes",
+      "Unlimited cuisine mixing",
+      "4 live counters included",
+      "3 sweets, 3 beverages, welcome mocktail",
+      "Head chef menu consultation",
+    ],
+    features: {
+      starters: "6",
+      mains: "10",
+      breads: "5 varieties",
+      rice: "3 rice + 2 dal",
+      sweets: "3",
+      beverages: "3",
+      "live-counters": "4 counters",
+      staff: "1 per 15 guests",
+      crockery: "Bone china & brass thali",
+      "counter-setup": "Bespoke styling & floral",
+      jain: true,
+      tasting: true,
+      coordinator: true,
+      "welcome-drink": true,
+      "menu-customisation": true,
+    },
+  },
+];
+
+export const pricingNotes = [
+  "All prices are per plate and exclusive of 5% GST.",
+  "Silver and Gold require a minimum of 100 guests; Platinum requires 150.",
+  "Below the minimum guest count, the minimum is billed as the floor.",
+  "Travel beyond 25 km from Sinhagad Road is charged at actuals.",
+  "A 30% advance confirms the date; the balance is due on the event day.",
+  "Jain, satvik and no-onion-garlic menus are prepared on separate stoves at no extra cost.",
+];

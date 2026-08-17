@@ -1,0 +1,330 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Ganesh Catering - design tokens
+   "Futuristic warmth": a near-black base lit by saffron and marigold, with
+   glass surfaces that let food imagery show through. Every foreground/
+   background pair below is checked against WCAG AA (4.5:1 for body text,
+   3:1 for large text and UI boundaries).
+   ========================================================================== */
+
+@theme {
+  /* -- Surfaces ------------------------------------------------------------
+     Named `ink` rather than `base` so it cannot collide with Tailwind's
+     built-in `text-base` font-size utility. */
+  --color-ink: #0a0a0b;
+  --color-surface: #131316;
+  --color-surface-2: #1c1c20;
+  --color-surface-3: #26262b;
+
+  /* -- Type ----------------------------------------------------------------
+     foreground on ink = 18.4:1 | muted on ink = 7.6:1 | subtle = 4.6:1 */
+  --color-foreground: #f7f4ef;
+  --color-muted: #a8a29b;
+  --color-subtle: #7d7871;
+
+  /* -- Accents -------------------------------------------------------------
+     saffron on ink = 9.0:1 | ink on saffron = 9.0:1 (safe for buttons) */
+  --color-saffron: #f59e0b;
+  --color-saffron-bright: #fbbf24;
+  --color-turmeric: #fcd34d;
+  --color-marigold: #ea7c0b;
+  --color-marigold-deep: #c2570a;
+  --color-kokum: #b4304f;
+
+  /* -- Lines ------------------------------------------------------------- */
+  --color-line: #2a2a30;
+  --color-line-strong: #3a3a42;
+
+  /* -- Feedback ---------------------------------------------------------- */
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+
+  /* -- Type families ----------------------------------------------------- */
+  --font-display: var(--font-clash), "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* -- Fluid display sizes -------------------------------------------------
+     Lower bounds are tuned for a 360px viewport. */
+  --text-display-sm: clamp(1.75rem, 1.35rem + 1.8vw, 2.5rem);
+  --text-display: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+  --text-display-lg: clamp(2.75rem, 1.7rem + 4.6vw, 5.5rem);
+
+  /* -- Motion ------------------------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* -- Radii ------------------------------------------------------------- */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  /* -- Animations -------------------------------------------------------- */
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Overlay / popover entrances. Defined here rather than pulled from
+   tailwindcss-animate, which targets Tailwind v3. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@utility anim-fade-in {
+  animation: fade-in 0.18s ease-out;
+}
+
+@utility anim-pop-in {
+  animation: pop-in 0.22s var(--ease-out-expo);
+}
+
+@utility anim-sheet-up {
+  animation: sheet-up 0.3s var(--ease-out-expo);
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchored sections clear of the fixed header. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A single, consistently visible focus ring across the whole site. */
+  :focus-visible {
+    outline: 2px solid var(--color-saffron);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-saffron);
+    color: var(--color-ink);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-3);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-line-strong);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-color: var(--color-surface-3) var(--color-ink);
+    scrollbar-width: thin;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Frosted panel used for cards laid over imagery and glow. */
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-surface) 62%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 8%, transparent);
+}
+
+@utility glass-strong {
+  background-color: color-mix(in oklab, var(--color-surface) 88%, transparent);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid
+    color-mix(in oklab, var(--color-foreground) 12%, transparent);
+}
+
+/* The marigold gradient, as text or as a background. */
+@utility text-gradient-marigold {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-turmeric) 0%,
+    var(--color-saffron) 38%,
+    var(--color-marigold) 72%,
+    var(--color-kokum) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* Gradient text loses its fill under forced colours. */
+  @media (forced-colors: active) {
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
+@utility bg-gradient-marigold {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-turmeric) 0%,
+    var(--color-saffron) 40%,
+    var(--color-marigold) 100%
+  );
+}
+
+/* Soft radial bloom placed behind hero and section headings. */
+@utility glow-marigold {
+  background-image: radial-gradient(
+    ellipse 60% 50% at 50% 0%,
+    color-mix(in oklab, var(--color-saffron) 22%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* Fine film grain that keeps the large dark fields from banding. */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Consistent page gutter; 1.25rem keeps content off the edge at 360px. */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Vertical rhythm between major page sections. */
+@utility section-y {
+  padding-block: clamp(3.5rem, 2rem + 7vw, 7.5rem);
+}
+
+/* Hides scrollbars on horizontally scrolling filter rails. */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   Framer Motion components additionally branch on useReducedMotion(); this
+   block is the backstop for CSS-driven animation.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
