@@ -1,31 +1,41 @@
 import Image from "next/image";
 
+import { menuItems } from "@/data/menu";
+
 /**
- * A slowly rotating ring of dishes around a centre plate.
+ * A ring of dishes orbiting a centre plate.
  *
- * Replaces the earlier ambient particle field: the composition is radially
- * aligned rather than random, and it shows the actual food.
+ * Replaced the earlier ambient particle field: the composition is radially
+ * aligned and shows real menu photography rather than random drift. The
+ * ring rotates one way while each dish counter-rotates at the same rate,
+ * which is what keeps the photograph upright as it travels rather than
+ * tumbling. Pure CSS (see the "Dish orbit" block in globals.css), so the
+ * landing page ships no animation library, and it is dropped entirely under
+ * prefers-reduced-motion.
  *
- * Animated entirely in CSS (see `.orbit-ring` / `.orbit-item` in globals.css)
- * so the landing page ships no animation library. The ring rotates one way
- * while each dish counter-rotates at the same rate, which keeps the
- * photographs upright as they travel. Both animations are dropped under
- * prefers-reduced-motion, leaving a static arrangement.
+ * Hovering a dish reveals its name - the ring keeps moving, so the label
+ * rides along with its photo rather than snapping to a fixed spot.
  */
+
+const DISH_IDS = [
+  "masala-dosa",
+  "paneer-butter-masala",
+  "live-pav-bhaji",
+  "veg-hakka-noodles",
+  "ukadiche-modak",
+  "kanda-bhaji",
+  "puran-poli",
+  "masala-chai",
+];
+
+const dishes = DISH_IDS.map((id) => menuItems.find((item) => item.id === id)).filter(
+  (item): item is (typeof menuItems)[number] => item !== undefined,
+);
 
 const centre = "/images/hero/hero.jpg";
 
-const dishes = [
-  "/images/menu/masala-dosa.jpg",
-  "/images/menu/paneer-butter-masala.jpg",
-  "/images/menu/live-pav-bhaji.jpg",
-  "/images/menu/veg-hakka-noodles.jpg",
-  "/images/menu/ukadiche-modak.jpg",
-  "/images/menu/kanda-bhaji.jpg",
-];
-
 /** Item box as a share of the container; the orbit radius follows from it. */
-const ITEM = 23; // %
+const ITEM = 21; // %
 const RADIUS = 176; // % of the item's own height
 
 export function DishOrbit() {
@@ -33,10 +43,12 @@ export function DishOrbit() {
     <div
       className="relative mx-auto aspect-square w-full max-w-[19rem] sm:max-w-[24rem] lg:max-w-[28rem]"
       // Purely illustrative; every dish shown is listed on the menu page.
+      // The per-dish hover labels are decorative confirmation, not unique
+      // content, so the whole graphic stays out of the accessibility tree.
       aria-hidden="true"
     >
-      {/* Warm bloom behind the plate */}
-      <div className="absolute inset-[8%] rounded-full bg-saffron/20 blur-3xl" />
+      {/* Warm bloom behind the plate, gently breathing. */}
+      <div className="plate-pulse absolute inset-[8%] rounded-full bg-saffron/25 blur-3xl" />
 
       {/* Alignment rings */}
       <div className="absolute inset-0 rounded-full border border-line" />
@@ -49,19 +61,19 @@ export function DishOrbit() {
           alt=""
           fill
           priority
-          sizes="(max-width: 640px) 36vw, 14rem"
+          sizes="(max-width: 640px) 40vw, 15rem"
           className="object-cover"
         />
       </div>
 
       {/* Orbiting dishes */}
       <div className="orbit-ring absolute inset-0">
-        {dishes.map((src, index) => {
+        {dishes.map((dish, index) => {
           const angle = (index / dishes.length) * 360;
           return (
             <div
-              key={src}
-              className="absolute"
+              key={dish.id}
+              className="group absolute"
               style={{
                 left: "50%",
                 top: "50%",
@@ -72,14 +84,32 @@ export function DishOrbit() {
                 transform: `rotate(${angle}deg) translateY(-${RADIUS}%) rotate(${-angle}deg)`,
               }}
             >
-              <div className="orbit-item relative size-full overflow-hidden rounded-full border border-line-strong bg-surface-2 shadow-xl shadow-black/40">
+              {/*
+                Clip and counter-rotation live on the SAME element - splitting
+                them (clip on a child of the animated element) let the child's
+                overflow-hidden/border-radius silently stop clipping in Chrome,
+                which promotes an animated ancestor to its own compositing
+                layer. The label is a separate sibling carrying an identical
+                counter-rotation, so it stays upright and in phase without
+                ever being nested inside the clipped circle.
+              */}
+              <div className="orbit-item relative size-full overflow-hidden rounded-full border border-line-strong bg-surface-2 shadow-xl shadow-black/40 transition-transform duration-300 group-hover:scale-110">
                 <Image
-                  src={src}
+                  src={dish.image}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 18vw, 7rem"
                   className="object-cover"
                 />
+              </div>
+
+              <div
+                aria-hidden="true"
+                className="orbit-item pointer-events-none absolute inset-0"
+              >
+                <span className="media-chip absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 scale-95 whitespace-nowrap rounded-full px-2.5 py-1 text-[0.7rem] font-medium text-foreground opacity-0 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
+                  {dish.name}
+                </span>
               </div>
             </div>
           );

@@ -675,17 +675,34 @@
   }
 }
 
+@keyframes plate-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+
 .orbit-ring {
-  animation: orbit-spin 48s linear infinite;
+  animation: orbit-spin 55s linear infinite;
 }
 
 .orbit-item {
-  animation: orbit-spin-reverse 48s linear infinite;
+  animation: orbit-spin-reverse 55s linear infinite;
+}
+
+.plate-pulse {
+  animation: plate-pulse 5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .orbit-ring,
-  .orbit-item {
+  .orbit-item,
+  .plate-pulse {
     animation: none;
   }
 }
