@@ -151,7 +151,7 @@ export default function AboutPage() {
 
       {/* Team */}
       <section
-        className="section-y bg-surface/30"
+        className="section-y warm-wash"
         aria-labelledby="team-heading"
       >
         <div className="container-page">
@@ -164,15 +164,15 @@ export default function AboutPage() {
           <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
               <StaggerItem key={member.id} className="h-full">
-                <article className="glass h-full overflow-hidden rounded-[var(--radius-card)]">
-                  <div className="relative aspect-4/5 bg-surface-2">
+                <article className="glass card-lift h-full overflow-hidden rounded-[var(--radius-card)]">
+                  <div className="card-media relative aspect-4/5">
                     <Image
                       src={member.image}
                       alt=""
                       fill
                       loading="lazy"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
+                      className="bg-surface-2 object-cover"
                     />
                   </div>
                   <div className="p-5">
@@ -194,7 +194,7 @@ export default function AboutPage() {
       </section>
 
       {/* Hygiene & credentials */}
-      <section className="section-y" aria-labelledby="hygiene-heading">
+      <section className="section-y warm-wash" aria-labelledby="hygiene-heading">
         <div className="container-page">
           <SectionHeading
             eyebrow="Hygiene & credentials"

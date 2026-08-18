@@ -25,7 +25,7 @@ export function MenuPreview() {
 
   return (
     <section
-      className="section-y bg-surface/30"
+      className="section-y warm-wash"
       aria-labelledby="menu-preview-heading"
     >
       <div className="container-page">

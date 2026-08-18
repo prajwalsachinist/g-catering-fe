@@ -16,7 +16,8 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-line-strong bg-surface px-4 py-3 text-sm",
+      // See fieldBase in input.tsx for why this uses --panel-bg, not --color-surface.
+      "flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-line-strong bg-[var(--panel-bg)] px-4 py-3 text-sm",
       "text-foreground data-[placeholder]:text-subtle",
       "transition-colors duration-200 focus:border-saffron focus:outline-none",
       "disabled:cursor-not-allowed disabled:opacity-50",

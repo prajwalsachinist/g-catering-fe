@@ -46,15 +46,15 @@ export function EventTypes() {
               <StaggerItem key={event.slug} className="h-full">
                 <Link
                   href={`/menu?event=${event.slug}`}
-                  className="group glass relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] transition-all duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:border-saffron/35"
+                  className="group glass card-lift relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)]"
                 >
-                  <div className="relative h-44 overflow-hidden bg-surface-2">
+                  <div className="card-media relative h-44 overflow-hidden">
                     <Image
                       src={event.image}
                       alt=""
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+                      className="bg-surface-2 object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
                     />
                     <div
                       aria-hidden="true"

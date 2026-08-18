@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 
-import { WhatsAppIcon } from "@/components/site/icons";
+import { WhatsAppBrandIcon } from "@/components/site/icons";
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -118,7 +118,7 @@ export function EnquiryForm() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <WhatsAppIcon className="size-5" />
+              <WhatsAppBrandIcon className="size-5" />
               Send on WhatsApp
             </a>
           </Button>

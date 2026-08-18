@@ -34,7 +34,7 @@ const reasons = [
 
 export function Stats() {
   return (
-    <section className="section-y" aria-labelledby="why-heading">
+    <section className="section-y warm-wash" aria-labelledby="why-heading">
       <div className="container-page">
         {/* Counters */}
         <Stagger className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
@@ -68,7 +68,7 @@ export function Stats() {
           <Stagger className="mt-12 grid gap-5 md:grid-cols-2">
             {reasons.map(({ icon: Icon, title, description }) => (
               <StaggerItem key={title} className="h-full">
-                <div className="glass flex h-full gap-4 rounded-[var(--radius-card)] p-6">
+                <div className="glass card-lift flex h-full gap-4 rounded-[var(--radius-card)] p-6">
                   <span
                     aria-hidden="true"
                     className="grid size-11 shrink-0 place-items-center rounded-xl border border-saffron/25 bg-saffron/10 text-saffron"

@@ -3,7 +3,12 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const fieldBase = [
-  "w-full rounded-xl border border-line-strong bg-surface px-4 py-3 text-sm text-foreground",
+  // bg-[var(--panel-bg)] rather than bg-surface: --panel-bg is the token
+  // that already tracks "readable content surface" per theme (translucent
+  // dark in dark mode, solid white in light). --color-surface is tuned as a
+  // warm decorative tan in light mode, which pushed the placeholder text
+  // below AA when the two were mixed here.
+  "w-full rounded-xl border border-line-strong bg-[var(--panel-bg)] px-4 py-3 text-sm text-foreground",
   "placeholder:text-subtle transition-colors duration-200",
   "hover:border-line-strong/80",
   "focus:border-saffron focus:outline-none",

@@ -58,6 +58,8 @@
   /* -- Type families ----------------------------------------------------- */
   --font-display: var(--font-clash), "Segoe UI", system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-marathi:
+    var(--font-mukta), "Noto Sans Devanagari", "Nirmala UI", sans-serif;
 
   /* -- Fluid display sizes -------------------------------------------------
      Lower bounds are tuned for a 360px viewport. */
@@ -123,15 +125,20 @@
   --chip-bg: color-mix(in oklab, var(--color-ink) 62%, transparent);
   --chip-border: transparent;
   --chip-shadow: none;
+
+  /* Hover elevation. Dark lifts with a saffron glow; light needs a real
+     neutral shadow, since a glow on white just looks like haze. */
+  --card-hover-shadow: 0 20px 50px -24px var(--color-saffron);
+  --btn-hover-shadow: 0 14px 40px -12px var(--color-saffron);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --color-ink: #fdfbf7;
-  --color-surface: #ffffff;
-  --color-surface-2: #f5f1ea;
-  --color-surface-3: #eae4da;
+  --color-ink: #faf5ec;
+  --color-surface: #efe1c9;
+  --color-surface-2: #e6d3ac;
+  --color-surface-3: #dcc9a0;
 
   --color-foreground: #1a1714;
   --color-muted: #5c554c;
@@ -167,16 +174,19 @@
   --chip-bg: color-mix(in oklab, #ffffff 92%, transparent);
   --chip-border: var(--color-line);
   --chip-shadow: 0 2px 8px rgb(26 23 20 / 0.12);
+
+  --card-hover-shadow: 0 18px 44px -22px rgb(26 23 20 / 0.5);
+  --btn-hover-shadow: 0 14px 34px -14px rgb(180 83 9 / 0.55);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
 
-    --color-ink: #fdfbf7;
-    --color-surface: #ffffff;
-    --color-surface-2: #f5f1ea;
-    --color-surface-3: #eae4da;
+    --color-ink: #faf5ec;
+    --color-surface: #efe1c9;
+    --color-surface-2: #e6d3ac;
+    --color-surface-3: #dcc9a0;
 
     --color-foreground: #1a1714;
     --color-muted: #5c554c;
@@ -212,6 +222,9 @@
     --chip-bg: color-mix(in oklab, #ffffff 92%, transparent);
     --chip-border: var(--color-line);
     --chip-shadow: 0 2px 8px rgb(26 23 20 / 0.12);
+
+    --card-hover-shadow: 0 18px 44px -22px rgb(26 23 20 / 0.5);
+    --btn-hover-shadow: 0 14px 34px -14px rgb(180 83 9 / 0.55);
   }
 }
 
@@ -347,6 +360,17 @@
     text-wrap: pretty;
   }
 
+  /* Marathi is set in Mukta wherever it appears. Keying off :lang means new
+     Marathi content picks the face up automatically, as long as it carries
+     lang="mr" - which it needs for screen readers and search engines anyway.
+     The slight size bump balances Devanagari's smaller x-height against
+     Inter and Clash Display. */
+  :lang(mr) {
+    font-family: var(--font-marathi);
+    font-size: 1.05em;
+    line-height: 1.5;
+  }
+
   /* A single, consistently visible focus ring across the whole site. */
   :focus-visible {
     outline: 2px solid var(--color-saffron);
@@ -454,6 +478,32 @@
   );
 }
 
+/*
+ * Ambient multi-colour wash for sections that would otherwise sit as a flat
+ * page-coloured block (menu preview, testimonials, hygiene points). Low
+ * alpha throughout, so it never becomes a text background in the contrast
+ * sense - it reads as depth behind the content, the same way glow-marigold
+ * already does safely in the hero.
+ */
+@utility warm-wash {
+  background-image:
+    radial-gradient(
+      ellipse 55% 60% at 12% 8%,
+      color-mix(in oklab, var(--color-saffron) 16%, transparent) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 45% 55% at 92% 30%,
+      color-mix(in oklab, var(--color-kokum) 11%, transparent) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 25% 100%,
+      color-mix(in oklab, var(--color-turmeric) 14%, transparent) 0%,
+      transparent 65%
+    );
+}
+
 /* Fine film grain that keeps the large dark fields from banding. */
 @utility grain {
   position: relative;
@@ -500,6 +550,46 @@
   :root:not([data-theme="dark"]) .map-embed {
     filter: none;
   }
+}
+
+/* ==========================================================================
+   Hover elevation
+
+   All hover treatments are gated on (hover: hover) so tapping on a phone
+   cannot leave an element stuck in its hover state.
+
+   translate3d rather than translateY is deliberate: it keeps the card on a
+   single compositor layer. Without it a hairline appears along the seam
+   between the photograph and the card body whenever the card lands on a
+   fractional device pixel.
+   ========================================================================== */
+
+.card-lift {
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo),
+    border-color 0.45s var(--ease-out-expo);
+  backface-visibility: hidden;
+}
+
+@media (hover: hover) {
+  .card-lift:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: var(--card-hover-shadow);
+    border-color: color-mix(in oklab, var(--color-saffron) 38%, transparent);
+  }
+}
+
+/*
+ * The media box's height can land on a fractional pixel while the <img>
+ * inside rasterises to whole pixels. Any placeholder colour on the wrapper
+ * then shows through as a hairline along the bottom edge. Keeping the
+ * wrapper transparent means the leftover sub-pixel row is the card's own
+ * background, so the seam is invisible; the placeholder tint lives on the
+ * image element instead.
+ */
+.card-media {
+  background-color: transparent;
 }
 
 /* Hides scrollbars on horizontally scrolling filter rails. */

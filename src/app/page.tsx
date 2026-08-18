@@ -24,7 +24,7 @@ export default function HomePage() {
       <MenuPreview />
       <Stats />
 
-      <section className="section-y bg-surface/30" aria-labelledby="reviews-heading">
+      <section className="section-y warm-wash" aria-labelledby="reviews-heading">
         <div className="container-page">
           <SectionHeading
             eyebrow="Client stories"

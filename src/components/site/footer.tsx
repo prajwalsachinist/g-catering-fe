@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import {
-  FacebookIcon,
-  InstagramIcon,
-  WhatsAppIcon,
+  FacebookBrandIcon,
+  InstagramBrandIcon,
+  WhatsAppBrandIcon,
 } from "@/components/site/icons";
 import { Logo } from "@/components/site/logo";
 import { eventTypes } from "@/data/categories";
@@ -17,11 +17,31 @@ import {
   whatsappHref,
 } from "@/lib/site-config";
 
+function ColumnHeading({ id, children }: { id?: string; children: React.ReactNode }) {
+  return (
+    <h2
+      id={id}
+      className="flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.14em] text-foreground"
+    >
+      <span
+        aria-hidden="true"
+        className="h-3 w-1 shrink-0 rounded-full bg-gradient-marigold"
+      />
+      {children}
+    </h2>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-line bg-surface/40">
+    <footer className="relative border-t border-line-strong/50 bg-surface/60">
+      {/* Brand hairline, matching the header's scrolled state. */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[2px] bg-gradient-marigold"
+      />
       <div className="container-page py-14 md:py-20">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Brand */}
@@ -31,51 +51,47 @@ export function Footer() {
               {siteConfig.tagline}. Serving weddings, mangalkarya, vastu shanti
               and corporate events across Pune since {siteConfig.founded}.
             </p>
+            {/* Brand marks carry their own colour, so no bordered wrapper. */}
             <div className="mt-5 flex items-center gap-3">
               <a
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-line-strong p-2.5 text-muted transition-colors hover:border-saffron hover:text-saffron"
+                className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-110"
                 aria-label={`${siteConfig.name} on Instagram`}
               >
-                <InstagramIcon className="size-4" />
+                <InstagramBrandIcon className="size-9" />
               </a>
               <a
                 href={siteConfig.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-line-strong p-2.5 text-muted transition-colors hover:border-saffron hover:text-saffron"
+                className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-110"
                 aria-label={`${siteConfig.name} on Facebook`}
               >
-                <FacebookIcon className="size-4" />
+                <FacebookBrandIcon className="size-9" />
               </a>
               <a
                 href={whatsappHref(defaultWhatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-line-strong p-2.5 text-muted transition-colors hover:border-saffron hover:text-saffron"
+                className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-110"
                 aria-label="Message us on WhatsApp"
               >
-                <WhatsAppIcon className="size-4" />
+                <WhatsAppBrandIcon className="size-9" />
               </a>
             </div>
           </div>
 
           {/* Navigation */}
           <nav aria-labelledby="footer-pages" className="lg:col-span-2">
-            <h2
-              id="footer-pages"
-              className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-foreground"
-            >
-              Pages
-            </h2>
+            <ColumnHeading id="footer-pages">Pages</ColumnHeading>
             <ul className="mt-4 space-y-2.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted transition-colors hover:text-saffron"
+                    className="text-sm text-muted transition-colors hover:text-saffron-bright"
                   >
                     {link.label}
                   </Link>
@@ -86,18 +102,13 @@ export function Footer() {
 
           {/* Occasions */}
           <nav aria-labelledby="footer-events" className="lg:col-span-3">
-            <h2
-              id="footer-events"
-              className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-foreground"
-            >
-              Occasions
-            </h2>
+            <ColumnHeading id="footer-events">Occasions</ColumnHeading>
             <ul className="mt-4 space-y-2.5">
               {eventTypes.map((event) => (
                 <li key={event.slug}>
                   <Link
                     href={`/menu?event=${event.slug}`}
-                    className="text-sm text-muted transition-colors hover:text-saffron"
+                    className="text-sm text-muted transition-colors hover:text-saffron-bright"
                   >
                     {event.name}
                   </Link>
@@ -108,14 +119,12 @@ export function Footer() {
 
           {/* Contact */}
           <div className="lg:col-span-3">
-            <h2 className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-foreground">
-              Get in touch
-            </h2>
+            <ColumnHeading>Get in touch</ColumnHeading>
             <ul className="mt-4 space-y-3.5 text-sm">
               <li>
                 <a
                   href={telHref}
-                  className="flex items-start gap-2.5 text-muted transition-colors hover:text-saffron"
+                  className="flex items-start gap-2.5 text-muted transition-colors hover:text-saffron-bright"
                 >
                   <Phone className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   {siteConfig.contact.phoneDisplay}
@@ -124,7 +133,7 @@ export function Footer() {
               <li>
                 <a
                   href={mailHref}
-                  className="flex items-start gap-2.5 break-all text-muted transition-colors hover:text-saffron"
+                  className="flex items-start gap-2.5 break-all text-muted transition-colors hover:text-saffron-bright"
                 >
                   <Mail className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   {siteConfig.contact.email}
@@ -154,9 +163,7 @@ export function Footer() {
 
         {/* Service areas */}
         <div className="mt-12 border-t border-line pt-8">
-          <h2 className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-foreground">
-            Areas we serve
-          </h2>
+          <ColumnHeading>Areas we serve</ColumnHeading>
           <p className="mt-3 text-sm leading-relaxed text-subtle">
             {siteConfig.serviceAreas.join(" · ")} and across Pune district.
           </p>

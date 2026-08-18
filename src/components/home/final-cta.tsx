@@ -3,7 +3,7 @@ import { ArrowRight, Phone } from "lucide-react";
 
 import { Magnetic } from "@/components/motion/magnetic";
 import { Reveal } from "@/components/motion/reveal";
-import { WhatsAppIcon } from "@/components/site/icons";
+import { WhatsAppBrandIcon } from "@/components/site/icons";
 import { Button } from "@/components/ui/button";
 import {
   defaultWhatsappMessage,
@@ -60,7 +60,7 @@ export function FinalCta() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <WhatsAppIcon className="size-5" />
+                    <WhatsAppBrandIcon className="size-5" />
                     WhatsApp us
                   </a>
                 </Button>

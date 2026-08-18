@@ -90,7 +90,7 @@ export function GalleryGrid() {
             key={image.id}
             type="button"
             onClick={() => setOpenIndex(index)}
-            className="group relative mb-4 block w-full overflow-hidden rounded-2xl border border-line break-inside-avoid"
+            className="group card-lift relative mb-4 block w-full overflow-hidden rounded-2xl border border-line break-inside-avoid"
             aria-label={`Open photograph: ${image.caption}`}
           >
             <Image

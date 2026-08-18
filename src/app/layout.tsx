@@ -6,7 +6,7 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { MobileCtaBar } from "@/components/site/mobile-cta-bar";
 import { JsonLd } from "@/components/seo/json-ld";
-import { clashDisplay, inter } from "@/lib/fonts";
+import { clashDisplay, inter, mukta } from "@/lib/fonts";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { siteConfig } from "@/lib/site-config";
 
@@ -70,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${clashDisplay.variable} ${inter.variable}`}
+      className={`${clashDisplay.variable} ${inter.variable} ${mukta.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh antialiased">

@@ -43,10 +43,17 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-all duration-300",
         scrolled
-          ? "glass-strong border-b border-line py-2"
+          ? "glass-strong border-b border-line-strong py-2"
           : "border-b border-transparent py-4",
       )}
     >
+      {/* Brand hairline, only once the bar has picked up its background. */}
+      {scrolled && (
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[2px] bg-gradient-marigold"
+        />
+      )}
       <div className="container-page flex items-center justify-between gap-4">
         <Link
           href="/"
@@ -64,19 +71,13 @@ export function Header() {
                   href={link.href}
                   aria-current={isActive(link.href) ? "page" : undefined}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
                     isActive(link.href)
-                      ? "text-saffron"
-                      : "text-muted hover:text-foreground",
+                      ? "bg-saffron/12 text-saffron"
+                      : "text-muted hover:bg-saffron/8 hover:text-foreground",
                   )}
                 >
                   {link.label}
-                  {isActive(link.href) && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-4 -bottom-0.5 h-px bg-saffron"
-                    />
-                  )}
                 </Link>
               </li>
             ))}

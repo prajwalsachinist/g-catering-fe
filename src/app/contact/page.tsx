@@ -5,7 +5,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { EnquiryForm } from "@/components/contact/enquiry-form";
 import { Reveal } from "@/components/motion/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
-import { WhatsAppIcon } from "@/components/site/icons";
+import { WhatsAppBrandIcon } from "@/components/site/icons";
 import { PageHero } from "@/components/site/page-hero";
 import { Button } from "@/components/ui/button";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
@@ -78,7 +78,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <WhatsAppIcon className="size-5" />
+                        <WhatsAppBrandIcon className="size-5" />
                         Message on WhatsApp
                       </a>
                     </Button>

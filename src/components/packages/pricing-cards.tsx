@@ -15,7 +15,7 @@ export function PricingCards() {
         <StaggerItem key={tier.id} className="h-full">
           <article
             className={cn(
-              "relative flex h-full flex-col rounded-[var(--radius-card)] p-6 sm:p-8",
+              "card-lift relative flex h-full flex-col rounded-[var(--radius-card)] p-6 sm:p-8",
               tier.popular
                 ? "glass-strong border-saffron/40 shadow-[0_24px_70px_-40px_var(--color-saffron)]"
                 : "glass",

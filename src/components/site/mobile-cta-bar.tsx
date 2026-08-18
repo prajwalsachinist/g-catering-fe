@@ -2,7 +2,7 @@
 
 import { Phone } from "lucide-react";
 
-import { WhatsAppIcon } from "@/components/site/icons";
+import { WhatsAppBrandIcon } from "@/components/site/icons";
 import {
   defaultWhatsappMessage,
   telHref,
@@ -37,7 +37,7 @@ export function MobileCtaBar() {
             rel="noopener noreferrer"
             className="flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-marigold text-sm font-semibold text-on-accent transition-transform active:scale-[0.98]"
           >
-            <WhatsAppIcon className="size-4" />
+            <WhatsAppBrandIcon className="size-4" />
             WhatsApp
           </a>
         </div>

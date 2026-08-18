@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
 /**
  * Scroll-snap carousel. The track is a natively scrollable region with
  * tabindex=0, so keyboard users can pan it with the arrow keys without any
- * custom key handling; the buttons are a pointer affordance on top of that.
+ * custom key handling; the buttons and dots are pointer/click affordances on
+ * top of that.
  */
 export function TestimonialCarousel() {
   const trackRef = React.useRef<HTMLUListElement>(null);
@@ -28,7 +29,7 @@ export function TestimonialCarousel() {
   }, []);
 
   // Derive the active dot from scroll position rather than tracking it
-  // separately, so dragging and button presses stay in agreement.
+  // separately, so dragging, dot clicks and button presses stay in agreement.
   React.useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -70,7 +71,7 @@ export function TestimonialCarousel() {
       <ul
         ref={trackRef}
         tabIndex={0}
-        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2"
+        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-1 pb-2 pt-1"
       >
         {testimonials.map((testimonial, i) => (
           <li
@@ -79,11 +80,19 @@ export function TestimonialCarousel() {
             aria-label={`${i + 1} of ${testimonials.length}`}
             className="w-[85%] shrink-0 snap-center sm:w-[60%] lg:w-[38%]"
           >
-            <figure className="glass flex h-full flex-col rounded-[var(--radius-card)] p-6 sm:p-7">
-              <Quote
+            <figure className="glass card-lift relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] p-6 sm:p-7">
+              {/* Colour accent so the card reads as more than a grey outline. */}
+              <span
                 aria-hidden="true"
-                className="size-7 shrink-0 text-saffron/40"
+                className="absolute inset-x-0 top-0 h-1 bg-gradient-marigold"
               />
+
+              <span
+                aria-hidden="true"
+                className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-marigold text-on-accent shadow-[0_8px_20px_-8px_var(--color-saffron)]"
+              >
+                <Quote className="size-5" fill="currentColor" />
+              </span>
 
               <div
                 className="mt-4 flex gap-0.5"
@@ -103,14 +112,24 @@ export function TestimonialCarousel() {
                 {testimonial.quote}
               </blockquote>
 
-              <figcaption className="mt-6 border-t border-line pt-4">
-                <p className="font-display font-semibold">{testimonial.name}</p>
-                <p className="mt-0.5 text-sm text-muted">
-                  {testimonial.role} · {testimonial.location}
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-saffron">
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-4">
+                <span
+                  aria-hidden="true"
+                  className="grid size-10 shrink-0 place-items-center rounded-full border border-saffron/30 bg-saffron/10 font-display text-sm font-semibold text-saffron"
+                >
+                  {testimonial.name.charAt(0)}
+                </span>
+                <div className="min-w-0">
+                  <p className="truncate font-display font-semibold">
+                    {testimonial.name}
+                  </p>
+                  <p className="truncate text-sm text-muted">
+                    {testimonial.role} · {testimonial.location}
+                  </p>
+                </div>
+                <span className="ml-auto shrink-0 rounded-full border border-saffron/30 bg-saffron/15 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-saffron-bright">
                   {eventTypeLabel[testimonial.eventType]}
-                </p>
+                </span>
               </figcaption>
             </figure>
           </li>
@@ -118,39 +137,54 @@ export function TestimonialCarousel() {
       </ul>
 
       <div className="mt-8 flex items-center justify-between gap-4">
-        {/* Dots double as a progress indicator on mobile. */}
-        <ul className="flex items-center gap-1.5" aria-hidden="true">
+        {/* Dots double as a progress indicator and a jump-to-slide control. */}
+        <ul className="flex items-center gap-1.5">
           {testimonials.map((testimonial, i) => (
             <li key={testimonial.id}>
-              <span
-                className={cn(
-                  "block h-1.5 rounded-full transition-all duration-300",
-                  i === index ? "w-6 bg-saffron" : "w-1.5 bg-line-strong",
-                )}
-              />
+              <button
+                type="button"
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Go to testimonial ${i + 1} of ${testimonials.length}`}
+                aria-current={i === index}
+                className="p-1.5"
+              >
+                <span
+                  className={cn(
+                    "block h-1.5 rounded-full transition-all duration-300",
+                    i === index
+                      ? "w-7 bg-gradient-marigold shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-saffron)_18%,transparent)]"
+                      : "w-1.5 bg-line-strong hover:bg-saffron/50",
+                  )}
+                />
+              </button>
             </li>
           ))}
         </ul>
 
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => scrollToIndex(index - 1)}
-            disabled={index === 0}
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft aria-hidden="true" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => scrollToIndex(index + 1)}
-            disabled={index === testimonials.length - 1}
-            aria-label="Next testimonial"
-          >
-            <ChevronRight aria-hidden="true" />
-          </Button>
+        <div className="flex items-center gap-3">
+          <p className="text-xs text-subtle tabular-nums">
+            {index + 1} / {testimonials.length}
+          </p>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => scrollToIndex(index - 1)}
+              disabled={index === 0}
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft aria-hidden="true" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => scrollToIndex(index + 1)}
+              disabled={index === testimonials.length - 1}
+              aria-label="Next testimonial"
+            >
+              <ChevronRight aria-hidden="true" />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

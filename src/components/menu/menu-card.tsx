@@ -19,13 +19,11 @@ export function MenuCard({ item, priority = false, className }: MenuCardProps) {
   return (
     <article
       className={cn(
-        "group glass relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)]",
-        "transition-all duration-500 ease-[var(--ease-out-expo)]",
-        "hover:-translate-y-1 hover:border-saffron/35 hover:shadow-[0_20px_50px_-24px_var(--color-saffron)]",
+        "group glass card-lift relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)]",
         className,
       )}
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-surface-2">
+      <div className="card-media relative aspect-4/3 overflow-hidden">
         <Image
           src={item.image}
           alt={item.name}
@@ -33,7 +31,7 @@ export function MenuCard({ item, priority = false, className }: MenuCardProps) {
           priority={priority}
           loading={priority ? undefined : "lazy"}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+          className="bg-surface-2 object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
         />
         <div aria-hidden="true" className="media-fade absolute inset-0" />
         {category && (
