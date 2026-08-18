@@ -64,17 +64,23 @@ export function Header() {
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center gap-6 xl:gap-7">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   aria-current={isActive(link.href) ? "page" : undefined}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
+                    // Underline grows from the centre on an animated ::after
+                    // rather than a background pill, so the active/hover
+                    // treatment reads as a mark under the word, not a button.
+                    "group relative px-1.5 py-2 text-[0.9375rem] tracking-wide transition-[color,transform] duration-200",
+                    "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[2px] after:origin-center after:rounded-full",
+                    "after:bg-gradient-marigold after:transition-transform after:duration-300 after:ease-[var(--ease-out-expo)] after:content-['']",
+                    "motion-safe:hover:-translate-y-px",
                     isActive(link.href)
-                      ? "bg-saffron/12 text-saffron"
-                      : "text-muted hover:bg-saffron/8 hover:text-foreground",
+                      ? "font-semibold text-saffron after:scale-x-100"
+                      : "font-medium text-muted after:scale-x-0 hover:text-foreground hover:after:scale-x-100",
                   )}
                 >
                   {link.label}
